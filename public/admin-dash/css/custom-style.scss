@@ -1,0 +1,31 @@
+.info-item {
+    position: relative;
+    padding: 6px 0;
+
+    .info-title {
+        font-weight: 400;
+        font-size: 17px;
+    }
+
+    .user-info,
+    .question-info {
+        font-size: 16px;
+        font-weight: 300;
+    }
+
+    .question-info {
+        .answer-group {
+            .q-answer {
+                border: none;
+                cursor: pointer;
+
+                &:focus,
+                &:hover {
+                    border: none;
+                    box-shadow: none;
+                    outline: none;
+                }
+            }
+        }
+    }
+}

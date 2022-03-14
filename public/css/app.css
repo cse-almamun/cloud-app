@@ -1,0 +1,159 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.iti {
+  width: 100%;
+}
+
+.iti__flag {
+  background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/img/flags.png");
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .iti__flag {
+    background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/img/flags@2x.png");
+  }
+}
+
+.bg-blue {
+  background-color: #3962d6;
+}
+
+.text-blue {
+  color: #3962d6;
+}
+
+.btn-blue {
+  color: #fff;
+  background-color: #3962d6;
+  border-color: #3962d6;
+}
+
+.btn-blue:hover {
+  color: #fff;
+}
+
+#img-block {
+  width: 450px;
+  margin: auto;
+  height: auto;
+}
+
+.puzzle-item {
+  width: calc(100% / 3);
+  height: calc(450px / 3);
+  float: left;
+  border: 1px solid silver;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-repeat: no-repeat;
+}
+
+#tile1 {
+  background-position: 0 0;
+}
+
+#tile2 {
+  background-position: -150px -0px;
+}
+
+#tile3 {
+  background-position: -300px -0px;
+}
+
+#tile4 {
+  background-position: -0 -150px;
+}
+
+#tile5 {
+  background-position: -150px -150px;
+}
+
+#tile6 {
+  background-position: -300px -150px;
+}
+
+#tile7 {
+  background-position: -0 -300px;
+}
+
+#tile8 {
+  background-position: -150px -300px;
+}
+
+#tile9 {
+  background-position: -300px -300px;
+}
+
+label {
+  display: inline-block;
+}
+
+label.error {
+  margin-bottom: 0;
+  color: red;
+}
+
+.tab {
+  display: none;
+  width: 100%;
+  margin: 0px auto;
+}
+
+.current {
+  display: block;
+}
+
+.form-control {
+  width: 100% !important;
+}
+
+.hide {
+  display: none;
+}
+
+.error {
+  display: block;
+}
+
+#registrationForm,
+#loginForm {
+  position: relative;
+  /* Make circles that indicate the steps of the form: */
+}
+
+#registrationForm fieldset:not(:first-of-type),
+#loginForm fieldset:not(:first-of-type) {
+  display: none;
+}
+
+#registrationForm .step,
+#loginForm .step {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  margin: 0 2px;
+  color: #fff;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.8;
+  padding: 3px;
+}
+
+#registrationForm .step.active,
+#loginForm .step.active {
+  opacity: 1;
+  background-color: #3962d6;
+}
+
+#registrationForm .step.finish,
+#loginForm .step.finish {
+  background-color: #3962d6;
+}
+/*# sourceMappingURL=app.css.map */

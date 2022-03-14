@@ -1,0 +1,28 @@
+.info-item {
+  position: relative;
+  padding: 6px 0;
+}
+
+.info-item .info-title {
+  font-weight: 400;
+  font-size: 17px;
+}
+
+.info-item .user-info,
+.info-item .question-info {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.info-item .question-info .answer-group .q-answer {
+  border: none;
+  cursor: pointer;
+}
+
+.info-item .question-info .answer-group .q-answer:focus, .info-item .question-info .answer-group .q-answer:hover {
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  outline: none;
+}
+/*# sourceMappingURL=custom-style.css.map */
