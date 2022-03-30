@@ -158,7 +158,7 @@
             <div class="tab">
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="text" name="data" value="" id="image-data" class="form-control" required>
+                        <input type="hidden" name="data" value="" id="image-data" class="form-control" required>
                         <div class="form-group">
                             <label for="chooseFile">Upload Secuirty Image</label>
                             <input type="file" name="image" id="chooseFile" accept="image/*" class="form-control"
