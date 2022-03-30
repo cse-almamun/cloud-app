@@ -19,7 +19,7 @@
                             to reset your password.</div>
                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                             <a class="small text-blue" href="{{ url('/') }}">Return to login</a>
-                            <button type="submit" class="btn btn-blue">Get Reset Link</button>
+                            <button type="submit" class="btn btn-blue">Next</button>
                         </div>
                     </form>
                 </div>

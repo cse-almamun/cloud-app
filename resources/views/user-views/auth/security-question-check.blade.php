@@ -11,14 +11,21 @@
 
                     <form action="{{ url('forgot-password') }}" method="post">
                         @csrf
-                        <input type="hidden" name="answer_uuid" class="form-control" value="{{ $question->uuid }}">
-                        <input type="hidden" name="user_uuid" class="form-control" value="{{ $question->user_uuid }}">
+
+                        <input type="hidden" name="user_uuid" class="form-control" value="{{ $user->uuid }}">
                         <input type="hidden" name="email" class="form-control" value="{{ request('email') }}">
-                        <div class="form-floating mb-3">
-                            <label for="inputAnswer">{{ $question->question }}</label>
-                            <input type="text" class="form-control" name="answer" id="inputAnswer"
-                                placeholder="name@example.com" required />
-                        </div>
+                        @foreach ($questions as $q)
+                            <div class="form-floating mb-3">
+                                <input type="hidden" name="answer_uuid_{{ $loop->index + 1 }}" class="form-control"
+                                    value="{{ $q->uuid }}">
+                                <label for="inputAnswer{{ $loop->index + 1 }}">{{ $q->question }}</label>
+                                <input type="text" class="form-control" name="answer_{{ $loop->index + 1 }}"
+                                    id="inputAnswer{{ $loop->index + 1 }}" placeholder="input your answer" required />
+                                <div class="form-text text-muted small">The answer is case sensitive. </div>
+
+                            </div>
+                        @endforeach
+
                         <div class="small mb-3 text-muted">Enter your email address and we will send you a link
                             to reset your password.</div>
                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">

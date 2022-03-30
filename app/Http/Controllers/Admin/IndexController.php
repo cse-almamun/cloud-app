@@ -7,9 +7,8 @@ use App\Mail\ReplyContactMessage;
 use App\Mail\SendTempPassword;
 use App\Models\Admin;
 use App\Models\Contact;
-use App\Models\File;
-use App\Models\User;
-use App\Models\UserSecurityQuestion;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,6 +20,8 @@ class IndexController extends Controller
 {
     public function index(Request $request)
     {
+        // return Auth::guard('admin')->user()->created_at;
+
         $contacts = Contact::all();
         $admins = Admin::all();
         return view('admin-views.index', compact(['admins', 'contacts']));

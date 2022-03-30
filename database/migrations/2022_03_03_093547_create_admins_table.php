@@ -21,6 +21,7 @@ class CreateAdminsTable extends Migration
             $table->string('password')->nullable();
             $table->string('temp_password')->nullable();
             $table->boolean('isTemp')->default(0);
+            $table->string('emoji_password')->nullable();
             $table->integer('role');
             $table->rememberToken();
             $table->timestamps();

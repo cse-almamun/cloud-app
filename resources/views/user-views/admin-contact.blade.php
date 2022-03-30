@@ -1,6 +1,6 @@
 @extends('template.user-template')
 
-@section('title', 'Login to Cloud Storage')
+@section('title', 'Get support from admin')
 
 
 @section('content')
@@ -66,8 +66,8 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <textarea name="message" class="form-control rounded-0" id="exampleFormControlTextarea1"
-                                rows="4" placeholder="write your message">{{ old('message') }}</textarea>
+                            <textarea name="message" class="form-control rounded-0" id="exampleFormControlTextarea1" rows="4"
+                                placeholder="write your message">{{ old('message') }}</textarea>
                             @error('message')
                                 <small class="form-text text-danger">
                                     {{ $message }}

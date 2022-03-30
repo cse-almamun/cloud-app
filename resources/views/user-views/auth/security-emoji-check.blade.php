@@ -21,7 +21,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="emojiPassword">Select your Emoji Password</label>
-                                <input type="text" name="emoji_password" id="emojiPassword"
+                                <input type="password" name="emoji_password" id="emojiPassword"
                                     value="{{ old('emoji_password') }}" class="form-control"
                                     placeholder="Choose your emoji">
                                 @error('emoji_password')

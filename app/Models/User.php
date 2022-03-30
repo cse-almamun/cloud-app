@@ -28,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'complete',
         'emoji',
+        'storage',
         'image_password',
         'phone_number'
     ];
@@ -64,7 +65,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(File::class, 'user_uuid', 'uuid');
     }
 
-    public function secueirtyQuestions()
+    public function securityQuestions()
     {
         return $this->hasMany(UserSecurityQuestion::class, 'user_uuid', 'uuid');
     }

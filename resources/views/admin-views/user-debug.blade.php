@@ -16,7 +16,12 @@
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
-                    type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Contact</button>
+                    type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-action-tab" data-bs-toggle="pill" data-bs-target="#pills-action"
+                    type="button" role="tab" aria-controls="pills-action" aria-selected="false">Action</button>
             </li>
         </ul>
     </div>
@@ -90,6 +95,30 @@
             </div>
         </div>
         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+            <div class="row d-flex justify-content-center">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body">Total Storage: {{ $user->storage }} GB</div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-secondary text-white mb-4">
+                        <div class="card-body">Used Space: {{ $size }}</div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">Total Directory: {{ $total_folder }}</div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body">Total Files: {{ $total_files }}</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="card">
                 <div class="card-header">
                     <h5 class="float-start pt-2">Profile Information</h5>
@@ -151,7 +180,7 @@
                                 </div>
 
                                 <div class="question-list">
-                                    @foreach ($user->secueirtyQuestions as $value)
+                                    @foreach ($user->securityQuestions as $value)
                                         <div class="info-item d-flex w-100">
                                             <div class="info-title me-5">
                                                 {{ $value->question->question }}
@@ -193,6 +222,89 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-action" role="tabpanel" aria-labelledby="pills-action-tab">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="float-start pt-2">Perform User Request Action</h5>
+                </div>
+                <div class="card-body">
+                    <div class="my-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="text-center">Send User Secruirty Password Request</h5>
+                            </div>
+                            <div class="card-body">
+                                <form action="{{ route('admin.debug.user.reset-security-password.submit') }}"
+                                    method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="mb-2">
+                                                <input type="text" name="user_uuid" id="" value="{{ $user->uuid }}"
+                                                    class="form-control" required readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <select class="form-control" name="reset_option" required>
+                                                    <option disabled selected>Choose Option</option>
+                                                    <option value="reset_emoji">Reset Emoji Password</option>
+                                                    <option value="reset_image">Reset Image Password</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4">
+
+                                            <div class="text-center form-group">
+                                                <button type="submit" class="btn btn-blue">Send</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="my-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="text-center">Update User Storage Limit</h5>
+                            </div>
+                            <div class="card-body">
+                                <form action="{{ route('amdin.update.user-storage.submit') }}" class="row g-3"
+                                    method="POST">
+                                    @csrf
+                                    <div class="col-3">
+                                        <label for="staticEmail" class="visually-hidden">Email</label>
+                                        <input type="text" name="email" readonly class="form-control" id="staticEmail"
+                                            value="{{ $user->email }}" required>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="staticUUID" class="visually-hidden">User UUID</label>
+                                        <input type="text" name="uuid" readonly class="form-control" id="statiUUID"
+                                            value="{{ $user->uuid }}" required>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="storageLimit" class="visually-hidden">Storage Limit</label>
+                                        <input type="number" name="storage" class="form-control" id="storageLimit"
+                                            placeholder="Storage limit" required>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="submit" class="btn btn-blue">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -19,6 +19,18 @@
   }
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .bg-blue {
   background-color: #3962d6;
 }
@@ -40,11 +52,11 @@
 #img-block {
   width: 450px;
   margin: auto;
-  height: auto;
+  height: 450px;
 }
 
 .puzzle-item {
-  width: calc(100% / 3);
+  width: calc(450px / 3);
   height: calc(450px / 3);
   float: left;
   border: 1px solid silver;

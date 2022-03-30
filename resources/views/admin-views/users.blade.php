@@ -5,7 +5,8 @@
 @section('content')
     <div class="mx-auto w-50 mt-3">
         <form class="d-flex" action="{{ route('admin.users') }}" method="GET">
-            <input class="form-control me-2" type="search" name="search" placeholder="search user" aria-label="Search">
+            <input class="form-control me-2" type="search" name="search"
+                placeholder="search user by email, uuid, first name, last name" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
     </div>

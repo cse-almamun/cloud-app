@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 class SecurityCheckControlller extends Controller
 {
-    public function imageSecuieryCheck()
+    public function imageSecurityCheck()
     {
         $authdata = session('pre-auth');
         $img =  DB::table('users')->select('security_image')->where('uuid', $authdata['uuid'])->first();
@@ -47,7 +47,7 @@ class SecurityCheckControlller extends Controller
     public function verifyUserEmojiPassword(Request  $request)
     {
         $validate = $request->validate([
-            'emoji_password' => 'required|min:5'
+            'emoji_password' => 'required'
         ]);
         if ($validate) {
             $preAuth = session('pre-auth');
@@ -60,16 +60,10 @@ class SecurityCheckControlller extends Controller
                 ];
                 if (Auth::attempt($credentials)) {
                     session()->forget(['pre-auth', 'security']);
-                    return redirect()->intended('dashboard');
+                    return redirect()->route('user.dashboard');
                 } else {
                     return redirect()->back()->with('error', 'Something Wrong');
                 }
-
-                // if (Hash::check(Str::replace(',', '-', $request->image_sequence), $lv->image_password)) {
-                //     
-                // } else {
-                //     return redirect('home')->with('error', 'Incorrect Image Password');
-                // }
             } else {
                 return back()->with('error', "Incorrect Emoji Password");
                 // return redirect()->route('home')->with('error', 'Incorrect Emoji Password');

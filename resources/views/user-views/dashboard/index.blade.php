@@ -12,6 +12,11 @@
     <div class="row d-flex justify-content-center">
         <div class="col-xl-3 col-md-6">
             <div class="card bg-primary text-white mb-4">
+                <div class="card-body">Total Storage: {{ Auth::user()->storage }} GB</div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-secondary text-white mb-4">
                 <div class="card-body">Used Space: {{ $size }}</div>
             </div>
         </div>
@@ -56,8 +61,8 @@
 
                     @foreach ($files as $file)
                         <tr>
-                            <td><a href="folders/{{ $file->uuid }}">{{ $file->file_name }}</a> </td>
-                            <td>{{ $file->file_size }}</td>
+                            <td>{{ $file->file_name }}</td>
+                            <td>{{ HelperUtil::readableFileSize($file->file_size) }}</td>
                             <td>{{ $file->created_at }}</td>
                             <td>{{ $file->updated_at }}</td>
                             <td class="d-flex">

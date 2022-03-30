@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('emoji');
             $table->string('image_password');
             $table->string('security_image')->nullable();
+            $table->integer('storage')->default(2);
             $table->rememberToken();
             $table->timestamps();
         });

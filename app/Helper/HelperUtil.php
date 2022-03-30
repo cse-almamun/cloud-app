@@ -4,11 +4,12 @@ namespace App\Helper;
 
 use App\Models\File;
 use App\Models\Folder;
+use App\Models\User;
 
 class HelperUtil
 {
 
-    static function totalStorage($uuid)
+    static function totalUsedStorage($uuid)
     {
         $used_space = File::where('user_uuid', $uuid)->sum('file_size');
         return $used_space;
@@ -33,8 +34,9 @@ class HelperUtil
 
     public static function checkSpace($file_size, $uuid)
     {
-        $total_space = (int) 1073741824;
-        $used_space = (int) HelperUtil::totalStorage($uuid);
+        $user = User::where('uuid', $uuid)->select('storage')->firstOrFail();
+        $total_space = (int) $user->storage * 1073741824;
+        $used_space = (int) HelperUtil::totalUsedStorage($uuid);
         $balance = $total_space - $used_space;
 
         return ($balance > 0 && $file_size < $balance) ? true : false;

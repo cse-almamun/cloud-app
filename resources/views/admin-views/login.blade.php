@@ -30,28 +30,41 @@
                                 <div class="card-body">
                                     <form action="{{ route('admin.login.submit') }}" method='post'>
                                         @csrf
-                                        <div class="form-floating mb-3">
+                                        <div class="mb-3">
+                                            <label for="inputEmail">Email address</label>
                                             <input class="form-control" id="inputEmail" type="email" name="email"
                                                 value="{{ old('email') }}" placeholder="name@example.com" required />
-                                            <label for="inputEmail">Email address</label>
                                             @error('email')
                                                 <small class="form-text text-danger">
                                                     {{ $message }}
                                                 </small>
                                             @enderror
                                         </div>
-                                        <div class="form-floating mb-3">
+                                        <div class="mb-3">
+                                            <label for="inputPassword">Password</label>
                                             <input class="form-control" id="inputPassword" type="password"
                                                 name="password" placeholder="Password" required />
-                                            <label for="inputPassword">Password</label>
                                             @error('email')
+                                                <small class="form-text text-danger">
+                                                    {{ $message }}
+                                                </small>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="emojiPassword">Choose your Emoji Password</label>
+                                            <input data-emoji-picker="true" class="form-control" id="emojiPassword"
+                                                type="password" name="emoji_password"
+                                                placeholder="Choose emoji password" required />
+                                            @error('emoji_password')
                                                 <small class="form-text text-danger">
                                                     {{ $message }}
                                                 </small>
                                             @enderror
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="password.html">Forgot Password?</a>
+                                            <a class="small"
+                                                href="{{ route('admin.reset.temp-password.view') }}">Reset
+                                                Password?</a>
                                             <button type="submit" class="btn btn-primary">Login</button>
                                         </div>
                                     </form>
@@ -83,8 +96,13 @@
 
     <script src="{{ asset('user-dash/js/scripts.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    {{-- Emoji Picker JS --}}
+    <script src="{{ asset('js/emojiPicker.js') }}"></script>
 
     <script>
+        (() => {
+            new EmojiPicker()
+        })()
         @if (Session::has('message'))
             toastr.options =
             {

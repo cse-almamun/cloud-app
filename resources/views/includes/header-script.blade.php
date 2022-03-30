@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/css/intlTelInput.css" />
 {{-- materliaze css cdn --}}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+{{-- Croppie.js css --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
 {{-- jquery enoji css --}}
 <link rel="stylesheet" href="{{ asset('css/jquery.emojipicker.css') }}">
 <link rel="stylesheet" href="{{ asset('css/jquery.emojipicker.tw.css') }}">

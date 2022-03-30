@@ -15,7 +15,7 @@ class DashboardController extends Controller
     {
         $total_folder = HelperUtil::countFolder(Auth::user()->uuid);
         $files = File::where('user_uuid', Auth::user()->uuid)->orderByDesc('created_at')->limit(20)->get();
-        $used_storage = HelperUtil::totalStorage(Auth::user()->uuid);
+        $used_storage = HelperUtil::totalUsedStorage(Auth::user()->uuid);
         $size = HelperUtil::readableFileSize($used_storage);
         $total_files = HelperUtil::countFiles(Auth::user()->uuid);
         return view('user-views.dashboard.index', compact(['files', 'size', 'total_folder', 'total_files']));

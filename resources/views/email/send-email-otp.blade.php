@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $data['subject'] }}</title>
+    <title>Applicaiton OTP Confirmation</title>
     <style type="text/css">
         div {
             position: relative;
@@ -21,14 +21,25 @@
             padding: 5px 0;
         }
 
-        
+        .text-center {
+            position: relative;
+            text-align: center;
+            font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
+            letter-spacing: 1px;
+
+        }
 
     </style>
 </head>
 
 <body>
-    <h5>Hi, {{ $data['fullName'] }}</h5>
-    <p>{{ $data['message'] }}</p>
+
+    <h5>Hi</h5>
+    <p>{{ $data['message'] }}
+    </p>
+    <div class="text-center">
+        <h3>{{ $data['token'] }}</h3>
+    </div>
     <div>
         Thanks,<br>
         {{ config('app.name') }}

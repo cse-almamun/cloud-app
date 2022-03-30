@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Auth\Events\Registered;
 
 class UserCustomAuth extends Controller
 {
@@ -47,21 +48,6 @@ class UserCustomAuth extends Controller
 
                     session(['pre-auth' => $pre_auth]);
                     return redirect('security-image-check');
-                    
-
-                    // if (Hash::check(json_encode($request->emoji_password), $lv->emoji)) {
-                    //     if (Hash::check(Str::replace(',', '-', $request->image_sequence), $lv->image_password)) {
-                    //         if (Auth::attempt($credentials)) {
-                    //             return redirect()->intended('dashboard');
-                    //         } else {
-                    //             return redirect()->back()->with('error', 'Something Wrong');
-                    //         }
-                    //     } else {
-                    //         return redirect('home')->with('error', 'Incorrect Image Password');
-                    //     }
-                    // } else {
-                    //     return redirect('home')->with('error', 'Incorrect Emoji Password');
-                    // };
                 } else {
                     $attempt++;
                     if ($attempt >= $this->limit) {
@@ -95,46 +81,53 @@ class UserCustomAuth extends Controller
                     'uuid' => Str::uuid()->toString(),
                     'user_uuid' => $check->uuid,
                     'question_uuid' => $request->question_one,
-                    'answer' => $request->question_one_ans
+                    'answer' => Str::replace(' ', '-', $request->question_one_ans)
                 ],
                 [
                     'uuid' => Str::uuid()->toString(),
                     'user_uuid' => $check->uuid,
                     'question_uuid' => $data['question_two'],
-                    'answer' => $data['question_two_ans']
+                    'answer' => Str::replace(' ', '-', $data['question_two_ans'])
                 ],
                 [
                     'uuid' => Str::uuid()->toString(),
                     'user_uuid' => $check->uuid,
                     'question_uuid' => $data['question_three'],
-                    'answer' => $data['question_three_ans']
+                    'answer' => Str::replace(' ', '-', $data['question_three_ans'])
                 ]
             ];
             $path = 'users/' . $check->uuid;
             UserSecurityQuestion::insert($userQuestions);
             Storage::makeDirectory($path);
 
-            if ($request->file('image')) {
-                User::where('uuid', $check->uuid)->update(['security_image' => $request->image->getClientOriginalName()]);
-                $request->image->storeAs($path, $request->image->getClientOriginalName());
+            if ($request->file('image') || $request->data) {
+                $imageName = Str::random(14) . '.png';
+                User::where('uuid', $check->uuid)->update(['security_image' => $imageName]);
+
+
+                $base64Image = preg_replace('#^data:image/\w+;base64,#i', '', $request->data);
+                $path = $path . DIRECTORY_SEPARATOR . $imageName;
+                Storage::put($path, base64_decode($base64Image));
             };
 
-            return redirect('/')->with('message', 'Registered Successfully');
+
+            event(new Registered($check));
+            $credentials = [
+                'email' => $data['email'],
+                'password' => $data['password'],
+            ];
+            Auth::attempt($credentials);
+            return redirect()->route('verification.notice')->with('message', 'We sent a verification email, please check your inbox.');
         }
         return redirect('registration')->with('error', 'Ops! there is somthing wrong');
     }
 
-
-    public function checkProfileCompletion()
-    {
-    }
 
 
     //create new new user to the database
 
     public function createUser(array $data)
     {
-
         $dbData = [
             'first_name' => $data['firstName'],
             'last_name' => $data['lastName'],
@@ -152,22 +145,13 @@ class UserCustomAuth extends Controller
     public function secuirityQuestionView($uuid)
     {
         $data = User::where('uuid', $uuid)->first();
-        //echo $data;
-        //echo $data->uuid;
         if ($data->complete) {
             echo 'profile is complete' + $data->uuid;
         } else {
             $questions = Questions::all();
-            //echo $questions;
-            // echo 'profile is not complete';
 
             return view('user-views.questions.view', compact('questions'));
         };
-        //return view('user-views.questions.view', compact('data'));
-    }
-
-    public function addSecuirityQuestions()
-    {
     }
 
     public function checkUserEmail(Request $request)

@@ -15,6 +15,8 @@ class Admin extends Authenticatable
 
     protected $guard = 'admin';
 
+    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -26,6 +28,7 @@ class Admin extends Authenticatable
         'email',
         'temp_password',
         'isTemp',
+        'emoji_password',
         'role',
         'password',
     ];
@@ -39,6 +42,7 @@ class Admin extends Authenticatable
         'id',
         'password',
         'temp_password',
+        'emoji_password',
         'remember_token',
     ];
 }

@@ -12,4 +12,6 @@
 <link href="{{ asset('user-dash/css/styles.css') }}" rel="stylesheet" />
 {{-- toastr css --}}
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+{{-- Croppie.js css style --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
 <link href="{{ asset('user-dash/css/custom-style.css') }}" rel="stylesheet" />

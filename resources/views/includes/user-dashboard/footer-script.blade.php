@@ -9,7 +9,8 @@
 <script src="{{ asset('user-dash/js/datatables-simple-demo.js') }}"></script>
 {{-- Toastr JS --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
+{{-- Croppie.js script --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
 <script>
     $(document).ready(function() {
         $.ajaxSetup({

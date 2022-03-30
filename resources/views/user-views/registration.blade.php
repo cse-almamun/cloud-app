@@ -100,6 +100,7 @@
                                     <label for="questionOneAnswer">Answer Question 1</label>
                                     <input type="text" name="question_one_ans" id="questionOneAnswer" class="form-control"
                                         placeholder="type your answer" required>
+                                    <div class="form-text text-muted small">The answer is case sensitive. </div>
                                 </div>
                             </div>
                         </div>
@@ -121,6 +122,7 @@
                                     <label for="questionTwoAnswer">Answer Question 2</label>
                                     <input type="text" name="question_two_ans" id="questionTwoAnswer" class="form-control"
                                         placeholder="type your answer" required>
+                                    <div class="form-text text-muted small">The answer is case sensitive. </div>
                                 </div>
                             </div>
                         </div>
@@ -143,6 +145,7 @@
                                     <label for="questionThreeAnswer">Answer Question 3</label>
                                     <input type="text" name="question_three_ans" id="questionThreeAnswer"
                                         class="form-control" placeholder="type your answer" required>
+                                    <div class="form-text text-muted small">The answer is case sensitive. </div>
                                 </div>
                             </div>
                         </div>
@@ -155,10 +158,13 @@
             <div class="tab">
                 <div class="row">
                     <div class="col-md-6">
+                        <input type="text" name="data" value="" id="image-data" class="form-control" required>
                         <div class="form-group">
-                            <label for="chooseFile">Upload File</label>
+                            <label for="chooseFile">Upload Secuirty Image</label>
                             <input type="file" name="image" id="chooseFile" accept="image/*" class="form-control"
                                 placeholder="" required>
+                            <div class="form-text text-muted small">Please choose your security image and remeber your
+                                puzzle sequence.</div>
                         </div>
                         <input type="hidden" name="image_sequence" id="imageSequence" class="form-control" required>
                         <div id="img-block" class="sortable"></div>
@@ -177,13 +183,36 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="emojiPassword">Select your Emoji Password</label>
-                            <input type="text" name="emoji_password" id="emojiPassword" class="form-control"
+                            <input type="password" name="emoji_password" id="emojiPassword" class="form-control"
                                 placeholder="Choose your emoji" required>
+                            <div class="form-text text-muted small">Please remeber your choosen emoji's sequence.</div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="image-container">
                             <img class="img-fluid" src="{{ asset('images/primary-image.jpg') }}" alt="" srcset="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Croppie Modal -->
+            <div class="modal fade" id="croppieModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                aria-labelledby="croppieModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="croppieModalLabel">Profile Picture Preview</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="cropped-image"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="cancelCropping"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="button" id="cropButton" class="btn btn-primary">Crop</button>
                         </div>
                     </div>
                 </div>
@@ -269,7 +298,8 @@
                         required: true,
                     },
                     emoji_password: {
-                        required: true
+                        required: true,
+                        minlength: 5
                     },
                     image: {
                         required: true
@@ -345,21 +375,10 @@
             });
 
             //check phone validation
-            // telInput.intlTelInput();
             var telInput = $("#telephone");
             var errorMsg = $("#lblError");
             var validMsg = $("#lblValid");
-            telInput.intlTelInput({
-                autoHideDialCode: true,
-                autoPlaceholder: "ON",
-                formatOnDisplay: true,
-                hiddenInput: "full_number",
-                initialCountry: "auto",
-                nationalMode: true,
-                placeholderNumberType: "MOBILE",
-                preferredCountries: ['US'],
-                separateDialCode: true
-            });
+            telInput.intlTelInput();
 
 
             function FormatNumber() {

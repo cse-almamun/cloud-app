@@ -19,6 +19,8 @@
 {{-- Emoji Picker JS --}}
 <script src="{{ asset('js/jquery.emojipicker.js') }}"></script>
 <script src="{{ asset('js/jquery.emojis.js') }}"></script>
+{{-- Croppie.js script --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
 {{-- Toaster Message Script to laravel blade view --}}
 <script>
     $.ajaxSetup({
