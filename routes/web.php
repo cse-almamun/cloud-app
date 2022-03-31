@@ -99,7 +99,7 @@ Route::post('get-user-folders', [FolderController::class, 'getUserFolders'])->mi
 Route::get('folders', [FolderController::class, 'index'])->middleware(['auth', 'verified']);
 Route::get('folders/{uuid}', [FolderController::class, 'folderFiles'])->middleware(['auth', 'verified']);
 Route::post('create-folder', [FolderController::class, 'makeFolder'])->middleware('auth');
-Route::post('folders/update', [FilesController::class, 'editFolder'])->middleware('auth');
+Route::post('folders/update', [FolderController::class, 'editFolder'])->middleware('auth');
 Route::delete('folders/delete', [FolderController::class, 'deleteFolder'])->middleware('auth');
 
 //profile settings

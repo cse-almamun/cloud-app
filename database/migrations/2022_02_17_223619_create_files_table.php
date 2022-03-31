@@ -20,7 +20,6 @@ class CreateFilesTable extends Migration
             $table->uuid('user_uuid');
             $table->string('file_name');
             $table->integer('file_size')->unsigned();
-            $table->string('path');
             $table->timestamps();
             $table->foreign('folder_uuid')->references('uuid')->on('folders')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('user_uuid')->references('uuid')->on('users')->onUpdate('cascade')->onDelete('cascade');

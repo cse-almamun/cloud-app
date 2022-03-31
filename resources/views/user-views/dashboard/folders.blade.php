@@ -41,12 +41,16 @@
                             <td><a href="folders/{{ $folder->uuid }}">{{ $folder->name }}</a> </td>
                             <td>{{ $folder->created_at }}</td>
                             <td class="d-flex">
-                                <form action="{{ url('folders/update') }}" method="POST">
+                                <button type="button" class="tb-btn text-warning edit-btn" folder-id="{{ $folder->uuid }}"
+                                    data-bs-toggle="modal" data-bs-target="#folderUpdateModal"><i
+                                        class="fas fa-edit"></i></button>
+                                {{-- <form action="{{ url('folders/update') }}" method="POST">
 
                                     @csrf
                                     <input type="hidden" name="folder_id" value="{{ $folder->uuid }}">
-                                    <button type="submit" class="tb-btn text-warning"><i class="fas fa-edit"></i></button>
-                                </form>
+                                    <button type="submit" class="tb-btn text-warning"><i
+                                            class="fas fa-edit"></i></button>
+                                </form> --}}
                                 <form action="{{ url('folders/delete') }}" method="POST">
                                     @method('delete')
                                     @csrf
@@ -61,4 +65,50 @@
             </table>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="folderUpdateModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update folder name</h5>
+                    <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url('/folders/update') }}" method="post">
+                        @csrf
+                        <input type="hidden" class="form-control" name="folder_uuid" id="folderInputUUID" readonly>
+                        <div class="mb-2">
+                            <label>New Folder Name</label>
+                            <input type="text" name="new_name" class="form-control" value="{{ old('new_name') }}"
+                                required>
+                            @error('new_name')
+                                <div class="invalid-feedback d-block" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary submit-btn">Update</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+@endsection
+
+
+@section('custom-script')
+    <script>
+        $(document).ready(function() {
+            $('.edit-btn').click(function(e) {
+                e.preventDefault();
+                let uuid = $(this).attr('folder-id');
+                $('#folderInputUUID').val(uuid);
+            });
+        });
+    </script>
 @endsection

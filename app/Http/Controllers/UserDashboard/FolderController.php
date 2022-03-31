@@ -62,21 +62,16 @@ class FolderController extends Controller
 
     public function editFolder(Request $req)
     {
-
-
-        $file =  DB::table('files')->where(['uuid' => $req->file_uuid, 'user_uuid' => Auth::user()->uuid])->first();
-
-        if (!empty($file)) {
-            $folder = DB::table('folders')->where(['uuid' => $file->folder_uuid, 'user_uuid' => Auth::user()->uuid])->first();
-            $extension = pathinfo(storage_path($file->path), PATHINFO_EXTENSION);
-            $newName = $req->new_fileName . '.' . $extension;
-            $newPath = $folder->path . '/' . $newName;
+        $folder = DB::table('folders')->where(['uuid' => $req->folder_uuid, 'user_uuid' => Auth::user()->uuid])->first();
+        if (!empty($folder)) {
+            $newPath = "users" . DIRECTORY_SEPARATOR . $folder->user_uuid . DIRECTORY_SEPARATOR . $req->new_name;
             //update file name on table
-            File::where('uuid', $req->file_uuid)->update(['file_name' => $newName]);
+            Folder::where('uuid', $req->folder_uuid)->update(['name' => $req->new_name, 'path' => $newPath]);
             //update file name storage directory
-            Storage::move($file->path, $newPath);
+            Storage::move($folder->path, $newPath);
+            return back()->with('message', 'Successfully updated!');
         }
-        return back();
+        return back()->with('error', 'Update folder name failed');
     }
 
     public function deleteFolder(Request $req)
