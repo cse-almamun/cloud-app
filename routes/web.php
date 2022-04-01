@@ -11,6 +11,7 @@ use App\Http\Controllers\auth\SecurityCheckControlller;
 use App\Http\Controllers\auth\UserCustomAuth;
 use App\Http\Controllers\auth\VerifyOTPController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\NexmoSMSController;
 use App\Http\Controllers\UserDashboard\DashboardController;
 use App\Http\Controllers\UserDashboard\FilesController;
 use App\Http\Controllers\UserDashboard\FolderController;
@@ -146,11 +147,13 @@ Route::get('file-size', [DashboardController::class, 'calculateTotalMemory'])->m
 /**
  * Reset user emoji password
  * Reset user image password
+ * Reset security questions
  */
 
 Route::get('reset/{option}/{id}/{token}/{uuid}', [ResetEmojiImagePasswordController::class, 'viewImageEmojiResetPage'])->name('user.reset.image-emoji-password');
 Route::post('reset/emoji-password', [ResetEmojiImagePasswordController::class, 'emojiPasswordResetProcess'])->name('user.reset.emoji-password.submit');
 Route::post('reset/image-password', [ResetEmojiImagePasswordController::class, 'imagePasswordResetProcess'])->name('user.reset.image-password.submit');
+Route::post('reset/security-questions', [ResetEmojiImagePasswordController::class, 'resetSecurityQuestionsAnswer'])->name('user.reset.security-questions.submit');
 //ajax get user list
 Route::post('search/users', [FilesController::class, 'findUser']);
 
@@ -181,9 +184,7 @@ Route::get('support', [ContactController::class, 'support']);
 Route::post('send-queries', [ContactController::class, 'sendMessage']);
 
 
-Route::get('check', function () {
-    return view('email.reset-emoji-image-security');
-});
+Route::get('check-sms', [NexmoSMSController::class, 'sendSMS']);
 
 
 
@@ -247,6 +248,10 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('read-message', [IndexController::class, 'readMessage'])->name('admin.read.message');
         Route::post('reply-message', [IndexController::class, 'replyContactMessage'])->name('admin.reply.contact-message');
 
+        /**
+         * System Users
+         */
+        Route::get('system/users', [UserDebugController::class, 'allSystemUsers'])->name('system.users');
 
         /**
          * User Debug Route

@@ -242,29 +242,24 @@
                                 <form action="{{ route('admin.debug.user.reset-security-password.submit') }}"
                                     method="POST">
                                     @csrf
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="mb-2">
-                                                <input type="text" name="user_uuid" id="" value="{{ $user->uuid }}"
-                                                    class="form-control" required readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
+                                    <div class="row g-3">
+                                        <input type="hidden" name="user_uuid" id="" value="{{ $user->uuid }}"
+                                            class="form-control" required readonly>
+
+                                        <div class="col-4">
                                             <div class="form-group">
                                                 <select class="form-control" name="reset_option" required>
                                                     <option disabled selected>Choose Option</option>
                                                     <option value="reset_emoji">Reset Emoji Password</option>
                                                     <option value="reset_image">Reset Image Password</option>
+                                                    <option value="reset_questions">Reset Questions</option>
                                                 </select>
                                             </div>
                                         </div>
 
 
-                                        <div class="col-md-4">
-
-                                            <div class="text-center form-group">
-                                                <button type="submit" class="btn btn-blue">Send</button>
-                                            </div>
+                                        <div class="col-4">
+                                            <button type="submit" class="btn btn-blue">Send</button>
                                         </div>
 
                                     </div>
@@ -283,16 +278,13 @@
                                 <form action="{{ route('amdin.update.user-storage.submit') }}" class="row g-3"
                                     method="POST">
                                     @csrf
-                                    <div class="col-3">
-                                        <label for="staticEmail" class="visually-hidden">Email</label>
-                                        <input type="text" name="email" readonly class="form-control" id="staticEmail"
-                                            value="{{ $user->email }}" required>
-                                    </div>
-                                    <div class="col-3">
-                                        <label for="staticUUID" class="visually-hidden">User UUID</label>
-                                        <input type="text" name="uuid" readonly class="form-control" id="statiUUID"
-                                            value="{{ $user->uuid }}" required>
-                                    </div>
+
+                                    <input type="hidden" name="email" readonly class="form-control" id="staticEmail"
+                                        value="{{ $user->email }}" required>
+
+                                    <input type="hidden" name="uuid" readonly class="form-control" id="statiUUID"
+                                        value="{{ $user->uuid }}" required>
+
                                     <div class="col-3">
                                         <label for="storageLimit" class="visually-hidden">Storage Limit</label>
                                         <input type="number" name="storage" class="form-control" id="storageLimit"

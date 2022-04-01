@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use App\Models\SecurityReset;
 use App\Models\User;
+use App\Models\UserSecurityQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -27,6 +28,10 @@ class ResetEmojiImagePasswordController extends Controller
                 'email' => $request->query('email')
             ];
 
+            if ($action === 'security-questions') {
+                $questions = UserSecurityQuestion::where('user_uuid', $uuid)->get();
+                return view('user-views.auth.reset-image-emoji-password')->with(['data' => $data, 'questions' => $questions]);
+            }
             return view('user-views.auth.reset-image-emoji-password')->with(['data' => $data]);
         }
 
@@ -103,5 +108,53 @@ class ResetEmojiImagePasswordController extends Controller
         }
 
         return back()->with('error', 'Something wrong, try again!!');
+    }
+
+
+    /**
+     * Reset Security Question Answere
+     */
+
+    public function resetSecurityQuestionsAnswer(Request $request)
+    {
+
+        $request->validate([
+            "id" => "required|numeric",
+            "uuid" => "required|uuid",
+            "otp" => "required|numeric",
+            "answer_uuid_1" => "required|uuid",
+            "answer_1" => "required|string",
+            "answer_uuid_2" => "required|uuid",
+            "answer_2" => "required|string",
+            "answer_uuid_3" => "required|uuid",
+            "answer_3" => "required|string"
+        ]);
+
+        $srdata = SecurityReset::findOrFail($request->id);
+
+        if ($srdata->otp !== $request->otp) return back()->with('error', 'Incorrect OTP Code!');
+
+        $check1 = $this->udpateQuestionAnswer($request->uuid, $request->answer_uuid_1, $request->answer_1);
+        $check2 = $this->udpateQuestionAnswer($request->uuid, $request->answer_uuid_2, $request->answer_2);
+        $check3 = $this->udpateQuestionAnswer($request->uuid, $request->answer_uuid_3, $request->answer_3);
+
+        if ($check1 && $check2 &&  $check3) {
+            $srdata->used = 1;
+            $srdata->save();
+            return redirect()->route('home')->with('message', 'Updated all questions');
+        } else {
+            if (!$check1) return back()->with('error', 'Incorrect secuirty answer for first question');
+            if (!$check2) return back()->with('error', 'Incorrect secuirty answer for second question');
+            if (!$check3) return back()->with('error', 'Incorrect secuirty answer for third question');
+        }
+    }
+
+
+    public function udpateQuestionAnswer($uuid, $qs_uuid, $answer)
+    {
+        $data = UserSecurityQuestion::where(['uuid' => $qs_uuid, "user_uuid" => $uuid])->firstOrFail();
+
+        $data->answer = $answer;
+        return $data->save();
     }
 }

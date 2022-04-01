@@ -15,6 +15,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
+                <a class="nav-link" href="{{ route('system.users') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
+                    System Users
+                </a>
                 @if (Auth::guard('admin')->user()->role === 1)
                     <a class="nav-link" href="{{ route('admin.employee') }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>

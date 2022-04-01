@@ -38,31 +38,12 @@ class ResetPasswordController extends Controller
 
     public function getPasswordResetLink(Request $req)
     {
-        $req->all();
         $req->validate([
             'email' => 'required|email',
             'answer_1' => 'required',
             'answer_2' => 'required',
             'answer_3' => 'required',
         ]);
-        $submited = [
-            [
-                "uuid" => $req->answer_uuid_1,
-                'user_uuid' => $req->user_uuid,
-                'answer' => $req->answer_1,
-            ],
-            [
-                "uuid" => $req->answer_uuid_2,
-                'user_uuid' => $req->user_uuid,
-                'answer' => $req->answer_2,
-            ],
-            [
-                "uuid" => $req->answer_uuid_3,
-                'user_uuid' => $req->user_uuid,
-                'answer' => $req->answer_3,
-            ]
-        ];
-
         $check1 = $this->checkSecurityQuestionAnswer($req->answer_uuid_1, Str::replace(' ', '-', $req->answer_1));
         $check2 = $this->checkSecurityQuestionAnswer($req->answer_uuid_2, Str::replace(' ', '-', $req->answer_2));
         $check3 = $this->checkSecurityQuestionAnswer($req->answer_uuid_3, Str::replace(' ', '-', $req->answer_3));

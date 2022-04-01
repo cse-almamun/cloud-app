@@ -84,6 +84,12 @@ class UserDebugController extends Controller
                 if ($check) return back()->with('message', 'Image Password Reset Link Sent');
                 break;
 
+            case 'reset_questions':
+                $url = 'reset/security-questions';
+                $check = $this->insertResetData($user, $url);
+                if ($check) return back()->with('message', 'Image Password Reset Link Sent');
+                break;
+
             default:
                 break;
         }
@@ -135,5 +141,16 @@ class UserDebugController extends Controller
             return back()->with('message', 'Successfully updated the storage limit');
         }
         return back()->with('error', 'Something wrong!');
+    }
+
+
+    /**
+     * retrive all system users
+     */
+
+    public function allSystemUsers()
+    {
+        $users =  User::all();
+        return view('admin-views.system-users', compact('users'));
     }
 }

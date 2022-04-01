@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +13,7 @@ use Illuminate\Support\Str;
 
 class SecurityCheckControlller extends Controller
 {
+    public $limit = 3;
     public function imageSecurityCheck()
     {
         $authdata = session('pre-auth');
@@ -30,10 +32,22 @@ class SecurityCheckControlller extends Controller
     public function verifyUserImagePassword(Request $request)
     {
         if ($request->image_sequence === null) return back()->with('error', 'Please create puzzle');
+        $attempt = (session()->has('attempt-1')) ? session('attempt-1') : 0;
         $preAuth = session('pre-auth');
         $lv = DB::table('users')->select('image_password')->where('uuid', $preAuth['uuid'])->first();
 
-        if (Hash::check(Str::replace(',', '-', $request->image_sequence), $lv->image_password)) return redirect('security-emoji-check');
+        if (Hash::check(Str::replace(',', '-', $request->image_sequence), $lv->image_password)) {
+            return redirect('security-emoji-check');
+        } else {
+            $attempt++;
+            if ($attempt >= $this->limit) {
+                session(['attempt-1' => $attempt]);
+                User::where('uuid', $preAuth['uuid'])->update(['locked' => 1]);
+                return redirect('support')->with('error', 'Your account has been locked!');
+            } else {
+                session(['attempt-1' => $attempt]);
+            }
+        }
 
         return back()->with('error', 'Incorrect Image Password');
     }
@@ -50,6 +64,7 @@ class SecurityCheckControlller extends Controller
             'emoji_password' => 'required'
         ]);
         if ($validate) {
+            $attempt = (session()->has('attempt-2')) ? session('attempt-2') : 0;
             $preAuth = session('pre-auth');
             $lv = DB::table('users')->select('emoji')->where('uuid', $preAuth['uuid'])->first();
 
@@ -65,8 +80,15 @@ class SecurityCheckControlller extends Controller
                     return redirect()->back()->with('error', 'Something Wrong');
                 }
             } else {
+                $attempt++;
+                if ($attempt >= $this->limit) {
+                    session(['attempt-2' => $attempt]);
+                    User::where('uuid', $preAuth['uuid'])->update(['locked' => 1]);
+                    return redirect('support')->with('error', 'Your account has been locked!');
+                } else {
+                    session(['attempt-2' => $attempt]);
+                }
                 return back()->with('error', "Incorrect Emoji Password");
-                // return redirect()->route('home')->with('error', 'Incorrect Emoji Password');
             };
         }
     }

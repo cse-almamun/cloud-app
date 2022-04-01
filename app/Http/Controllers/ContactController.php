@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\User;
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\returnSelf;
 
 class ContactController extends Controller
 {
@@ -25,6 +28,15 @@ class ContactController extends Controller
             'email' => 'required|email',
             'message' => 'required|string'
         ]);
+
+        if (isset($req->option) && $req->option === 'support') {
+            $user = User::where('email', $req->email)->first();
+            if ($user === null) return back()->with('error', 'User not associate with the email');
+        }
+
+        if (isset($req->question) && null === $req->question) {
+            return back()->with('error', 'Please choose option');
+        }
 
         $data = $req->all();
 
