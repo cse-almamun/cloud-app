@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Helper\HelperUtil;
 use App\Http\Controllers\Controller;
 use App\Mail\ResetSecurityPassword;
-use App\Models\File;
 use App\Models\SecurityReset;
 use App\Models\User;
 use Illuminate\Http\Request;

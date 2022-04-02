@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Questions;
 use App\Models\UserSecurityQuestion;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -81,19 +82,25 @@ class UserCustomAuth extends Controller
                     'uuid' => Str::uuid()->toString(),
                     'user_uuid' => $check->uuid,
                     'question_uuid' => $request->question_one,
-                    'answer' => Str::replace(' ', '-', $request->question_one_ans)
+                    'answer' => Str::replace(' ', '-', $request->question_one_ans),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ],
                 [
                     'uuid' => Str::uuid()->toString(),
                     'user_uuid' => $check->uuid,
                     'question_uuid' => $data['question_two'],
-                    'answer' => Str::replace(' ', '-', $data['question_two_ans'])
+                    'answer' => Str::replace(' ', '-', $data['question_two_ans']),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ],
                 [
                     'uuid' => Str::uuid()->toString(),
                     'user_uuid' => $check->uuid,
                     'question_uuid' => $data['question_three'],
-                    'answer' => Str::replace(' ', '-', $data['question_three_ans'])
+                    'answer' => Str::replace(' ', '-', $data['question_three_ans']),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ]
             ];
             $path = 'users/' . $check->uuid;

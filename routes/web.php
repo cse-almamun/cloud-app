@@ -17,13 +17,8 @@ use App\Http\Controllers\UserDashboard\FilesController;
 use App\Http\Controllers\UserDashboard\FolderController;
 use App\Http\Controllers\UserDashboard\ProfileSettingController;
 use App\Http\Controllers\UserDashboard\ShareFileController;
-use App\Models\Admin;
-use App\Models\Questions;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -157,28 +152,6 @@ Route::post('reset/security-questions', [ResetEmojiImagePasswordController::clas
 //ajax get user list
 Route::post('search/users', [FilesController::class, 'findUser']);
 
-Route::get('insert-question', function () {
-    $questions = [
-        "In what city were you born?",
-        "What is the name of your favorite pet?",
-        "What is your mother's maiden name?",
-        "What high school did you attend?",
-        "What is the name of your first school?",
-        "What was the make of your first car?",
-        "What was your favorite food as a child?",
-        "Where did you meet your spouse?",
-    ];
-
-    // return count($questions);
-    // foreach ($questions as $q) {
-    //     Questions::create([
-    //         'question' => $q
-    //     ]);
-    // }
-    return Questions::all();
-});
-
-
 Route::get('contact', [ContactController::class, 'index']);
 Route::get('support', [ContactController::class, 'support']);
 Route::post('send-queries', [ContactController::class, 'sendMessage']);
@@ -204,21 +177,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/reset/temp-password', [AdminResetPassword::class, 'viewTempPassReset'])->name('admin.reset.temp-password.view');
 
     Route::post('/reset/temp-password', [AdminResetPassword::class, 'resetAdminTempPassword'])->name('admin.reset.temp-password.submit');
-
-
-    //create super admin
-    Route::get('super-admin', function () {
-        $admin = [
-            'name' => 'Almamun',
-            'email' => 'hamimalmizan@protonmail.com',
-            'temp_password' => Hash::make('almamun123'),
-            'isTemp' => 1,
-            'role' => 1,
-        ];
-        return Admin::find(1);
-
-        // return Admin::create($admin);
-    });
 
     Route::get('/verify-otp', [VerifyOTPController::class, 'viewOTPPage'])->middleware('auth:admin')->name('admin.verify.otp');
     Route::post('/verify-otp', [VerifyOTPController::class, 'processOTP'])->middleware('auth:admin')->name('admin.verify.otp.submit');

@@ -6,8 +6,6 @@ use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-use function PHPUnit\Framework\returnSelf;
-
 class ContactController extends Controller
 {
     public function index()

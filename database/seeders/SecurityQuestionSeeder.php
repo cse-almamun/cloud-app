@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Questions;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class SecurityQuestionSeeder extends Seeder
 {
@@ -15,30 +17,56 @@ class SecurityQuestionSeeder extends Seeder
     public function run()
     {
         $questions = [
-            ['question' => "In what city were you born?"],
             [
-                'question' => "What is the name of your favorite pet?"
+                'uuid' => Str::uuid()->toString(),
+                'question' => 'In what city were you born?',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
-                'question' => "What is your mother's maiden name?"
+                'uuid' => Str::uuid()->toString(),
+                'question' => "What is the name of your favorite pet?",
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
-                'question' => "What high school did you attend?"
+                'uuid' => Str::uuid()->toString(),
+                'question' => "What is your mother's maiden name?",
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
-                'question' => "What is the name of your first school?"
+                'uuid' => Str::uuid()->toString(),
+                'question' => "What high school did you attend?",
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
-                'question' => "What was the make of your first car?"
+                'uuid' => Str::uuid()->toString(),
+                'question' => "What is the name of your first school?",
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
-                'question' => "What was your favorite food as a child?"
+                'uuid' => Str::uuid()->toString(),
+                'question' => "What was the make of your first car?",
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
-                'question' => "Where did you meet your spouse?"
+                'uuid' => Str::uuid()->toString(),
+                'question' => "What was your favorite food as a child?",
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'uuid' => Str::uuid()->toString(),
+                'question' => "Where did you meet your spouse?",
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
         ];
 
-        Questions::upsert($questions);
+        Questions::insert($questions);
     }
 }
