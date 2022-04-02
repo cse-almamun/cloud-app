@@ -23,7 +23,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Choose your new emoji password</label>
-                            <input type="text" name="emoji_password" id="emojiPassword" class="form-control"
+                            <input type="password" name="emoji_password" id="emojiPassword" class="form-control"
                                 placeholder="" aria-describedby="helpId" required>
                             <small id="helpId" class="text-muted">Please remember the emoji sequence</small>
                         </div>

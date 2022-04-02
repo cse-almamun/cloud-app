@@ -57,6 +57,7 @@ class ResetEmojiImagePasswordController extends Controller
         $user = User::where('uuid', $request->uuid)->firstOrFail();
 
         if (null !== $user) {
+            $user->locked = 0;
             $user->emoji = Hash::make(json_encode($request->emoji_password));
             $user->save();
 
@@ -92,6 +93,7 @@ class ResetEmojiImagePasswordController extends Controller
             if (Storage::exists($path . DIRECTORY_SEPARATOR . $user->security_image)) Storage::delete($path . DIRECTORY_SEPARATOR . $user->security_image);
             if ($request->file('image')) {
                 User::where('uuid', $user->uuid)->update([
+                    'locked' => 0,
                     'security_image' => $imageName,
                     'image_password' => Hash::make(Str::replace(',', '-', $request->image_sequence))
                 ]);

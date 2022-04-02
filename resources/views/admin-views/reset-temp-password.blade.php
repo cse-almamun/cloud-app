@@ -86,8 +86,8 @@
                                         <div class="mb-2">
                                             <label for="emojiPassword">Choose your Emoji Password</label>
                                             <input data-emoji-picker="true" class="form-control" id="emojiPassword"
-                                                type="text" name="emoji_password" placeholder="Choose emoji password"
-                                                required />
+                                                type="password" name="emoji_password"
+                                                placeholder="Choose emoji password" required />
                                             @error('emoji_password')
                                                 <small class="form-text text-danger">
                                                     {{ $message }}
