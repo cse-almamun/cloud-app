@@ -72,6 +72,11 @@ class UserCustomAuth extends Controller
 
     public function registrationProcess(Request $request)
     {
+
+        if (!($this->checkUserEmail($request))) return back()->withInput()->with('error', 'User email already in use');
+
+        if (!($this->checkUserPhone($request))) return back()->withInput()->with('error', 'User phone already in use');
+
         $data = $request->all();
 
         $check = $this->createUser($data);

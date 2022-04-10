@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="sb-sidenav-footer">
-            <div class="small">Logged in as: Almamun</div>
+            <div class="small">Logged in as: {{ Auth::guard('admin')->user()->name }}</div>
 
         </div>
     </nav>
