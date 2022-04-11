@@ -22,14 +22,14 @@
                                 <div class="form-group">
                                     <label for="firstName">First Name</label>
                                     <input type="text" class="form-control" id="firstName" name="firstName"
-                                        placeholder="First Name" required>
+                                        value="{{ old('firstName') }}" placeholder="First Name" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="lastName">Last Name</label>
                                     <input type="text" class="form-control" id="lastName" name="lastName"
-                                        placeholder="Last Name" required>
+                                        value="{{ old('lastName') }}" placeholder="Last Name" required>
                                 </div>
                             </div>
 
@@ -38,15 +38,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email"
-                                        required>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        value="{{ old('email') }}" placeholder="Email" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="emailConfirm">Confirm Email</label>
                                     <input type="email" class="form-control" id="emailConfirm" name="emailConfirm"
-                                        placeholder="Email" required>
+                                        value="{{ old('emailConfirm') }}" placeholder="Email" required>
                                 </div>
                             </div>
 
@@ -70,7 +70,8 @@
 
                         <div class="form-group">
                             <label for="telephone">Enter Phone Number</label>
-                            <input type="tel" id="telephone" name="telephone" class="form-control" required>
+                            <input type="tel" id="telephone" name="telephone" class="form-control"
+                                value="{{ old('telephone') }}" required>
                         </div>
                         <span id="lblValid" class="hide" style="color:green;">✓ Valid</span>
                         <span id="lblError" class="hide" style="color:red;">Invalid number</span>
@@ -99,7 +100,7 @@
                                 <div class="form-group">
                                     <label for="questionOneAnswer">Answer Question 1</label>
                                     <input type="text" name="question_one_ans" id="questionOneAnswer" class="form-control"
-                                        placeholder="type your answer" required>
+                                        value="{{ old('question_one_ans') }}" placeholder="type your answer" required>
                                     <div class="form-text text-muted small">The answer is case sensitive. </div>
                                 </div>
                             </div>
@@ -121,7 +122,7 @@
                                 <div class="form-group">
                                     <label for="questionTwoAnswer">Answer Question 2</label>
                                     <input type="text" name="question_two_ans" id="questionTwoAnswer" class="form-control"
-                                        placeholder="type your answer" required>
+                                        value="{{ old('question_two_ans') }}" placeholder="type your answer" required>
                                     <div class="form-text text-muted small">The answer is case sensitive. </div>
                                 </div>
                             </div>
@@ -144,7 +145,8 @@
                                 <div class="form-group">
                                     <label for="questionThreeAnswer">Answer Question 3</label>
                                     <input type="text" name="question_three_ans" id="questionThreeAnswer"
-                                        class="form-control" placeholder="type your answer" required>
+                                        class="form-control" value="{{ old('question_three_ans') }}"
+                                        placeholder="type your answer" required>
                                     <div class="form-text text-muted small">The answer is case sensitive. </div>
                                 </div>
                             </div>
@@ -184,7 +186,7 @@
                         <div class="form-group">
                             <label for="emojiPassword">Select your Emoji Password</label>
                             <input type="password" name="emoji_password" id="emojiPassword" class="form-control"
-                                placeholder="Choose your emoji" required>
+                                value="{{ old('emoji_password') }}" placeholder="Choose your emoji" required>
                             <div class="form-text text-muted small">Please remeber your choosen emoji's sequence.</div>
                         </div>
                     </div>

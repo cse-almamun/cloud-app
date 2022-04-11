@@ -38,7 +38,6 @@ Route::fallback(function () {
 // Auth::routes(['verify' => true]);
 
 
-
 Route::get('/', function () {
 
     if (Auth::check()) {
@@ -46,6 +45,10 @@ Route::get('/', function () {
     }
     return view('user-views.home');
 })->name('home');
+
+Route::get('/test', function () {
+    return view('user-views.test');
+});
 
 Route::post('/user/login-process', [UserCustomAuth::class, 'userLoginProcess']);
 
