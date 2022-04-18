@@ -35,6 +35,11 @@ class IndexController extends Controller
 
     public function addAdmin(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:admins',
+            'role' => 'required'
+        ]);
         $temPassword = Str::random(8);
         $admin = [
             'name' => $request->name,

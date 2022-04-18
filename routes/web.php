@@ -17,6 +17,7 @@ use App\Http\Controllers\UserDashboard\FilesController;
 use App\Http\Controllers\UserDashboard\FolderController;
 use App\Http\Controllers\UserDashboard\ProfileSettingController;
 use App\Http\Controllers\UserDashboard\ShareFileController;
+use App\Models\SharedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -41,14 +42,10 @@ Route::fallback(function () {
 Route::get('/', function () {
 
     if (Auth::check()) {
-        return redirect('dashboard');
+        return redirect()->route('user.dashboard');
     }
     return view('user-views.home');
 })->name('home');
-
-Route::get('/test', function () {
-    return view('user-views.test');
-});
 
 Route::post('/user/login-process', [UserCustomAuth::class, 'userLoginProcess']);
 
@@ -127,6 +124,8 @@ Route::get('file/download/{uuid}', [FilesController::class, 'downloadFile'])->mi
 //share file 
 Route::post('file/share', [ShareFileController::class, 'shareFile'])->middleware('auth');
 Route::get('shared-files', [ShareFileController::class, 'getSharedWithUserFiles'])->middleware(['auth', 'verified']);
+Route::get('file/{fileId}/shared-users', [ShareFileController::class, 'getSharedWithUserList']);
+Route::delete('shared-file/{shareId}/remove-user', [ShareFileController::class, 'removeSharedWithUser']);
 
 //reset password
 Route::get('forgot-password', [ResetPasswordController::class, 'index'])->middleware('guest');
@@ -187,7 +186,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => ['auth:admin', 'validotp']], function () {
         Route::get('/', [IndexController::class, 'index'])->name('admin.dashboard');
         Route::get('/logout', [AdminAuthController::class, 'adminLogout'])->name('admin.logout');
-
 
 
         /**

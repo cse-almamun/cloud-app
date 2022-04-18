@@ -50,6 +50,14 @@
     </div>
     @include('includes.admin.footer-script')
     @yield('custom-script');
+
+    @error('email')
+        <script>
+            toastr.error("{{ $message }}");
+        </script>
+        {{-- <div class="alert alert-danger">{{ $message }}</div> --}}
+    @enderror
+
 </body>
 
 </html>

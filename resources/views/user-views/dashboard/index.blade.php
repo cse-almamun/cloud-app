@@ -38,11 +38,12 @@
             Recent Files
         </div>
         <div class="card-body">
-            <table id="datatablesSimple">
+            <table id="datatablesSimple" class="datatablesSimple">
                 <thead>
                     <tr>
                         <th>File Name</th>
                         <th>File Size</th>
+                        <th>Status</th>
                         <th>Created At</th>
                         <th>Updated At</th>
                         <th>Action</th>
@@ -52,6 +53,7 @@
                     <tr>
                         <th>File Name</th>
                         <th>File Size</th>
+                        <th>Status</th>
                         <th>Created At</th>
                         <th>Updated At</th>
                         <th>Action</th>
@@ -63,6 +65,13 @@
                         <tr>
                             <td>{{ $file->file_name }}</td>
                             <td>{{ HelperUtil::readableFileSize($file->file_size) }}</td>
+                            <td>
+                                @if ($file->status)
+                                    Private
+                                @else
+                                    Public
+                                @endif
+                            </td>
                             <td>{{ $file->created_at }}</td>
                             <td>{{ $file->updated_at }}</td>
                             <td class="d-flex">
@@ -70,7 +79,7 @@
                                     data-bs-toggle="modal" data-bs-target="#fileUpdateModal"><i
                                         class="fas fa-edit"></i></button>
 
-                                <form action="{{ url('files/delete-file') }}" method="POST">
+                                <form action="{{ url('files/delete-file') }}" class="fileDelete" method="POST">
                                     @method('delete')
                                     @csrf
                                     <input type="hidden" name="file_uuid" value="{{ $file->uuid }}">
@@ -81,6 +90,10 @@
                                 <button type="button" class="tb-btn text-warning share-btn ms-2"
                                     file-id="{{ $file->uuid }}" data-bs-toggle="modal"
                                     data-bs-target="#fileUpdateModal"><i class="fas fa-share-alt"></i></button>
+                                <button type="button" class="tb-btn text-secondary shareList ms-2"
+                                    file-id="{{ $file->uuid }}" data-bs-toggle="modal"
+                                    data-bs-target="#shareListModal"><i class="fas fa-users"></i></button>
+
                             </td>
                         </tr>
                     @endforeach
@@ -89,34 +102,13 @@
             </table>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="fileUpdateModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="" id="edit-share" method="post">
-                        @csrf
-                        <input type="hidden" class="form-control" name="file_uuid" id="fileInputUUID" readonly>
 
-                        <div class="mb-2" id="dynamicFiled">
-                        </div>
-                        <div class="text-center">
-                            <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary submit-btn">Update</button>
-                        </div>
-                    </form>
-                </div>
 
-            </div>
-        </div>
-    </div>
+
 @endsection
 
 @section('custom-script')
+    <script src="{{ asset('user-dash/js/file-shared-user-list.js') }}"></script>
     <script>
         $(document).ready(function() {
             var dynamicContainer = $('#dynamicFiled');

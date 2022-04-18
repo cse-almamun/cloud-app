@@ -51,7 +51,7 @@
                                     <button type="submit" class="tb-btn text-warning"><i
                                             class="fas fa-edit"></i></button>
                                 </form> --}}
-                                <form action="{{ url('folders/delete') }}" method="POST">
+                                <form action="{{ url('folders/delete') }}" id="deleteFolder" method="POST">
                                     @method('delete')
                                     @csrf
                                     <input type="hidden" name="folder_id" value="{{ $folder->uuid }}">
@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Foldeer Update Modal -->
     <div class="modal fade" id="folderUpdateModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -108,6 +108,25 @@
                 e.preventDefault();
                 let uuid = $(this).attr('folder-id');
                 $('#folderInputUUID').val(uuid);
+            });
+
+            /**
+             * Delete a file
+             */
+
+            $("#deleteFolder").submit(function(e) {
+                e.preventDefault();
+                swal({
+                    title: "Want to delete this folder?",
+                    icon: "warning",
+                    text: "The action is permanent and no option to undo.",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((confirm) => {
+                    if (confirm) {
+                        e.currentTarget.submit();
+                    }
+                });
             });
         });
     </script>

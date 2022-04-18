@@ -14,6 +14,7 @@ s
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
 {{-- Toastr JS --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+{{-- Sweet Alert --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" crossorigin="anonymous">
 </script>
 <script>

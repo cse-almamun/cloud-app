@@ -82,6 +82,6 @@ class FolderController extends Controller
             $find->delete();
             Storage::deleteDirectory($path);
         }
-        return redirect('folders');
+        return redirect('folders')->with('message', 'Successfully Deleted!');;
     }
 }
