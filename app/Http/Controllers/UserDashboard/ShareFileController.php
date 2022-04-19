@@ -61,8 +61,8 @@ class ShareFileController extends Controller
         if (null !== $resp) {
             $final = $resp->delete();
             $list = SharedFile::where("file_uuid", $resp->file_uuid)->get();
-            if (sizeof($list) <= 0) {
-                File::where("uuid", $resp->file_uuid)->update(["status" => 0]);
+            if (sizeof($list) == 0) {
+                File::where("uuid", $resp->file_uuid)->update(['status' => 1]);
             }
             return response()->json($final, 200);
         }

@@ -155,7 +155,7 @@
             function getUserList(data) {
                 $.ajax({
                     type: "post",
-                    url: '{{ url('search/users') }}',
+                    url: '{{ url('/search/users') }}',
                     data: {
                         search_value: data
                     },

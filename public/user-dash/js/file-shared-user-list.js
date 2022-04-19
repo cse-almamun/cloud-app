@@ -67,12 +67,18 @@ $(document).ready(function () {
                 if (confirm) {
                     $.ajax({
                         type: "delete",
-                        url: `shared-file/${uuid}/remove-user`,
+                        url: `/shared-file/${uuid}/remove-user`,
                         dataType: "json",
                         success: function (response) {
+                            console.log(response);
                             if (response) {
                                 parentTr.remove();
                                 toastr.success("User Removed Successfully!!!");
+
+                                //refresh or reload the page to get update data
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 5000);
                             } else {
                                 toastr.error("Unable Removed User!!!");
                             }
