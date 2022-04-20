@@ -67,7 +67,7 @@ class FilesController extends Controller
 
     public function downloadFile($fileUuid)
     {
-        $file = File::where(['uuid' => $fileUuid, 'user_uuid' => Auth::user()->uuid])->firstOrFail();
+        $file = File::where('uuid', $fileUuid)->firstOrFail();
         $filePath = 'users' . DIRECTORY_SEPARATOR . $file->user_uuid . DIRECTORY_SEPARATOR . $file->folder->name . DIRECTORY_SEPARATOR . $file->file_name;;
         return Storage::download($filePath);
     }

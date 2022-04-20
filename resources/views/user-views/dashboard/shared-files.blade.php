@@ -40,7 +40,7 @@
                             <td>{{ $file->created_at }}</td>
                             <td>{{ $file->updated_at }}</td>
                             <td class="d-flex justify-content-center">
-                                <a href="{{ url('/file/download/' . $file->uuid) }}" class="ms-2 tb-btn"><i
+                                <a href="{{ url('/file/download/' . $file->file_uuid) }}" class="ms-2 tb-btn"><i
                                         class="fas fa-download"></i></a>
 
                             </td>
